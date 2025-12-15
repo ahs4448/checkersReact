@@ -1,0 +1,4 @@
+1. first step, every piece in an odd numbered row, will have the 
+row attribute changed to even on move
+
+2.every skip, the row never changes
