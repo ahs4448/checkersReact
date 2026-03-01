@@ -1,101 +1,59 @@
 body{
-  background-image: url("https://asset.gecdesigns.com/img/background-templates/gradient-triangle-abstract-background-template-10032405-1710079376651-cover.webp") ;
+  background-image: url("/Users/abdulhameed/Desktop/CheckersReact/gradient-triangle-abstract-background-template-10032405-1710079376651-cover.webp") ;
 }
 
-.nopiece{
-    padding: 30px;
-    width: 1%;
-    min-width: 1%;
-    margin: 1px;
-    display: inline-block;
-    background-image: linear-gradient(to right, rgb(4, 0, 125) , rgb(72, 10, 53));
-    box-shadow: 1px 1px 1px #242323;
-    background-size: cover;
-    border: 1px solid rgb(0, 0, 0);
-    /* border-radius: 4px; */
-    float: left;
-    /* background-image: url("qmark.png"); */
-     background: rgba(30, 0, 255, 0.15);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 0, 0, 0.2);
+body { font-family: sans-serif; }
+
+#container { 
+  display: flex; 
+  justify-content: center; 
+  margin-top: 90px; 
 }
 
-
-/* spots on board where pieces move */
-.valid{ 
-    padding: 30px;
-    width: 1%;
-    min-width: 1%;
-    margin: 1px;
-    display: inline-block;
-    box-shadow: 1px 1px 1px #242323;
-    background-size: cover;
-    background-color: rgb(0, 0, 0);
-    border: 1px solid rgb(85, 0, 255);
-    /* border-radius: 4px; */
-    float: left;
-   cursor: pointer;
-
-     background: rgba(0, 0, 0, 0.15);
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 0, 0, 0.2);
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 72px);
+  grid-template-rows: repeat(8, 72px);
+  border: 2px solid #333;
 }
 
-.board{
-   margin-top: 10px;
-    max-width: 44%;
-    max-height: 100px;
-    margin-left: 25%;
-    margin-right: 15%;
-    min-width: 550px;
-    
+.square { width: 72px; height: 72px; }
+
+.dark { 
+  
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  background: rgba(255, 255, 255, 0.12);
+
+   background: rgba(255, 255, 255, 0.12);
+  border: 0px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+.light { 
+    backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  background: rgba(255, 255, 255, 0.12);
+
+   background: rgba(255, 0, 0, 0.12);
+  border: 0px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
 }
 
-#container{
-    
-   
-     margin-top: 8%;
-    
-    
-   
- }
+.navbar { display: flex; justify-content: space-between; padding: 10px 50px; font-weight: bold; }
 
 
-.playerOne {
-    padding: 30px;
-    width: 0%;
-    margin: 1px;
-    /* background-image: url('playerOne.png'); */
-    background-size: 100px 100px;
-    background-repeat: no-repeat;
-    background-position: 47% 39%;
-    position: relative;
-    background-color: rgb(255, 51, 0);
-    border: 1px solid rgb(109, 84, 62);
-    border-radius: 40px;
-    float: left;
-   cursor: pointer;
-}
 
-.playerTwo {
-    padding: 30px;
-    width: 0%;
-    margin: 1px;
-    /* background-image: url('playerOne.png'); */
-    background-size: 100px 100px;
-    background-repeat: no-repeat;
-    background-position: 47% 39%;
-    position: relative;
-    background-color: rgb(0, 34, 255);
-    border: 1px solid rgb(109, 84, 62);
-    border-radius: 40px;
-    float: left;
-   cursor: pointer;
-}
+
+
+
+
+
+
 
 
 .navbar {
@@ -140,4 +98,29 @@ body{
 .nav-right {
   width: 120px;
   text-align: center;
+}
+
+.square { width: 72px; height: 72px; display: flex; justify-content: center; align-items: center; }
+.dark { background-color: #000000; }
+.light { background-color: #eeeed2; }
+
+.piece {
+  width: 70px; height: 70px; border-radius: 100%; border: 1px solid orange; cursor: pointer;
+}
+.playerOne { 
+  background-image: url("/src/playerOne.png");
+ background-position: 47% 39%;
+    background-size: 120px 120px;
+
+}
+.playerTwo { 
+  background-image: url("/src/playerTwo.png");
+ background-position: 50% 42%;
+    background-size: 120px 120px;
+}
+
+
+.selectedPiece {
+  box-shadow: 0 0 0 4px limegreen inset;
+  border-radius: 50%;
 }

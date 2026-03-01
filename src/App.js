@@ -1,364 +1,104 @@
 import './App.css';
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-
-
-var playerOneTurn = true;
-var playerTwoTurn = false;
-var playerOnePieces = 12;
-var playerTwoPieces = 12;
-var num;
-var arr = [];
-var positionRow;
-var positionNum;
-var isKing = "";
-var badMoveValsOdd = [4, 12, 20, 28]
-var badMoveValsEven = [5, 13, 21, 29]
-var badExtraskipsLeft = [1, 9, 17, 25, 5, 13, 21, 29]
-var badExtraskipsRight = [4, 12, 20, 28, 8, 16, 24, 32]
-
-
-
-
-function Navigation() {
-  const [color, setColor] = useState(""); // state for the color
-
-  useEffect(() => {
-    if (playerOneTurn === true) {
-      setColor("green"); // update state
-    }
-  }, []);
-
-
-
+// Navigation
+function Navigation({ playerOneTurn }) {
   return (
     <nav className="navbar">
-      <div className="nav-left">Player 2</div>
+      <div className="nav-left" style={{ color: playerOneTurn ? "black" : "green" }}>Player 2</div>
       <div className="nav-center">CHECKERS</div>
-      <div className="nav-right" style={{ color: color }}>Player 1</div>
+      <div className="nav-right" style={{ color: playerOneTurn ? "green" : "black" }}>Player 1</div>
     </nav>
   );
 }
 
-
-
-
-function Board() {
-   const [board, setBoard] = useState([
-    null, "P1", "P1", "P1", "P1",
-    "P1", "P1", "P1", "P1",
-    "P1", "P1", "P1", "P1",
-    "S", "S", "S", "S",
-    "S", "S", "S", "S",
-    "P2", "P2", "P2", "P2",
-    "P2", "P2", "P2", "P2",
-    "P2", "P2", "P2", "P2",
-  ]);
-
-  let positionArr = [];
-
+// Square component
+function Square({ isDark, piece, isSelected, onClick }) {
   return (
-
-    <div id="container">
-
-      <div className="board">
-
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="1" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="2" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="3" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="4" data="odd-from-top">
-        </div>
-
-        <div class="valid" value="5" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="6" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="7" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="8" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="9" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="10" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="11" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="12" data="odd-from-top">
-        </div>
-
-        <div class="valid" value="13" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="14" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="15" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="16" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="17" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="18" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="19" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="20" data="odd-from-top">
-        </div>
-
-        <div class="valid" value="21" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="22" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="23" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="24" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="25" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="26" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="27" data="odd-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="28" data="odd-from-top">
-        </div>
-
-        <div class="valid" value="29" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="30" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="31" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <div class="valid" value="32" data="even-from-top">
-        </div>
-
-        <div class="nopiece">
-        </div>
-
-        <Pieces />
-
-      </div>
+    <div className={`square ${isDark ? "dark" : "light"}`} onClick={onClick}>
+      {piece && (
+        <div className={`piece ${piece.player === 1 ? "playerOne" : "playerTwo"} ${isSelected ? "selectedPiece" : ""}`}>
+          {piece.king ? "K" : ""}
+        </div>
+      )}
     </div>
   );
 }
 
-function Pieces() {
-  return (
+// Board component
+function Board() {
+  const [playerOneTurn, setPlayerOneTurn] = useState(true);
 
-    <div>
+  // 32 dark squares (playable)
+  const initialPieces = Array(32).fill(null);
+  for (let i = 0; i < 12; i++) initialPieces[i] = { player: 1, king: false };
+  for (let i = 20; i < 32; i++) initialPieces[i] = { player: 2, king: false };
 
-      <div className="playerOne" data-position={1} data="odd-from-top" style={{ transform: "translate(72px, -512px)" }}>
-      </div>
+  const [pieces, setPieces] = useState(initialPieces);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-      <div className="playerOne" data-position={2} data="odd-from-top" style={{ transform: "translate(148px, -512px)" }}>
-      </div>
+  const handleClick = (index) => {
+  console.log("Clicked square (1–32):", index + 1);
 
-      <div className="playerOne" data-position={3} data="odd-from-top" style={{ transform: "translate(224px, -512px)" }}>
-      </div>
+  const clickedPiece = pieces[index];
 
-      <div className="playerOne" data-position={4} data="odd-from-top" style={{ transform: "translate(299px, -512px)" }}>
-      </div>
+  // Clicking your own piece
+  if (clickedPiece && clickedPiece.player === (playerOneTurn ? 1 : 2)) {
+    setSelectedIndex(index); // automatically selects/switches
+    return;
+  }
 
-      <div className="playerOne" data-position={5} data="even-from-top" style={{ transform: "translate(-253px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={6} data="even-from-top" style={{ transform: "translate(-178px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={7} data="even-from-top" style={{ transform: "translate(-102px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={8} data="even-from-top" style={{ transform: "translate(-27px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={9} data="odd-from-top" style={{ transform: "translate(72px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={10} data="odd-from-top" style={{ transform: "translate(148px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={11} data="odd-from-top" style={{ transform: "translate(224px, -448px)" }}>
-      </div>
-
-      <div className="playerOne" data-position={12} data="odd-from-top" style={{ transform: "translate(300px, -448px)" }}>
-      </div>
+  // If clicked an empty square while a piece is selected → future move logic
+  if (selectedIndex !== null) {
+    console.log("Attempt move from", selectedIndex + 1, "to", index + 1);
+    setSelectedIndex(null); // reset selection after move attempt
+  }
+};
 
 
+  // Optional: log when selection updates
+  useEffect(() => {
+    if (selectedIndex !== null) {
+      console.log("Selected square (1–32):", selectedIndex + 1);
+    }
+  }, [selectedIndex]);
 
+  const squares = [];
+  let darkIndex = 0; // maps 32 dark squares
 
-      <div className="playerTwo" data-position={21} data="even-from-top" style={{ transform: "translate(-253px, -256px)" }}>
-      </div>
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const isDark = (row + col) % 2 !== 0;
+      const piece = isDark ? pieces[darkIndex] : null;
+      const currentIndex = darkIndex;
 
-      <div className="playerTwo" data-position={22} data="even-from-top" style={{ transform: "translate(-178px, -256px)" }}>
-      </div>
+      squares.push(
+        <Square
+          key={row * 8 + col}
+          isDark={isDark}
+          piece={piece}
+          isSelected={isDark && currentIndex === selectedIndex}
+          onClick={() => isDark && handleClick(currentIndex)}
+        />
+      );
 
+      if (isDark) darkIndex++;
+    }
+  }
 
-      <div className="playerTwo" data-position={23} data="even-from-top" style={{ transform: "translate(-102px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={24} data="even-from-top" style={{ transform: "translate(-27px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={25} data="odd-from-top" style={{ transform: "translate(72px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={26} data="odd-from-top" style={{ transform: "translate(148px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={27} data="odd-from-top" style={{ transform: "translate(223px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={28} data="odd-from-top" style={{ transform: "translate(299px, -256px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={29} data="even-from-top" style={{ transform: "translate(-253px, -192px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={30} data="even-from-top" style={{ transform: "translate(-178px, -192px)" }}>
-      </div>
-
-      <div className="playerTwo" data-position={31} data="even-from-top" style={{ transform: "translate(-102px, -192px)" }}>
-      </div>
-
-
-      <div className="playerTwo" data-position={32} data="even-from-top" style={{ transform: "translate(-27px, -192px)" }}>
-      </div>
-
-
-
-    </div>
-  )
-}
-
-
-function App() {
   return (
     <>
-      <Navigation />
-      <Board />
+      <Navigation playerOneTurn={playerOneTurn} />
+      <div id="container">
+        <div className="board">{squares}</div>
+      </div>
     </>
   );
+}
+
+// App component
+function App() {
+  return <Board />;
 }
 
 export default App;
